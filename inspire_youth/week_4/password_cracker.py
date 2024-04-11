@@ -18,17 +18,18 @@ def crack_password_worker(args):
 
 def crack_password(password):
     length = len(password)
-    processes = cpu_count()  # Number of CPU cores
+    processes = min(cpu_count(), 4)  # Limiting to a maximum of 4 processes
     with Pool(processes) as pool:
         start_time = time.time()
         results = pool.map(crack_password_worker, [(password, length)] * processes)
         end_time = time.time()
         total_attempts = sum(results)
         elapsed_time = end_time - start_time
-        print(f"The password was cracked in {total_attempts} attempts.")
+        print(f"password zcx cracked in {total_attempts} attempts.")
         print(f"Time taken: {elapsed_time} seconds")
 
 if __name__ == "__main__":
     password = input("Enter the password to crack: ")
     print("Cracking password...")
     crack_password(password)
+
