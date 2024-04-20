@@ -18,7 +18,8 @@ def crack_password_worker(args):
 
 def crack_password(password):
     length = len(password)
-    processes = min(cpu_count(), 4)  # Limiting to a maximum of 4 processes
+    processes = min(cpu_count(), 4)  # Limiting to a maximum of 4 processes for the computer has 4 processors
+    
     with Pool(processes) as pool:
         start_time = time.time()
         results = pool.map(crack_password_worker, [(password, length)] * processes)
